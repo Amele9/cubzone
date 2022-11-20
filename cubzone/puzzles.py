@@ -63,9 +63,9 @@ class ThreeByThreeCubePuzzle(CubePuzzle):
 
 class FourByFourCubePuzzle(CubePuzzle):
     cube_faces = [
-        ("B", "Bw", "F", "Fw"),
-        ("D", "Dw", "U", "Uw"),
-        ("L", "Lw", "R", "Rw")
+        ("B", "F", "Fw"),
+        ("D", "U", "Uw"),
+        ("L", "R", "Rw")
     ]
     scramble_length = (
             ScrambleLengths.four_by_four_cube_puzzle -
