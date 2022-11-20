@@ -8,6 +8,8 @@ class ScrambleLengths(IntEnum):
     three_by_three_cube_puzzle = 21
     four_by_four_cube_puzzle = 44
     five_by_five_cube_puzzle = 60
+    six_by_six_cube_puzzle = 80
+    seven_by_seven_cube_puzzle = 100
 
 
 class Puzzle(ABC):
@@ -87,12 +89,32 @@ class FiveByFiveCubePuzzle(CubePuzzle):
     scramble_length = ScrambleLengths.five_by_five_cube_puzzle
 
 
+class SixBySixCubePuzzle(CubePuzzle):
+    cube_faces = [
+        ("3Fw", "B", "Bw", "F", "Fw"),
+        ("3Uw", "D", "Dw", "U", "Uw"),
+        ("3Rw", "L", "Lw", "R", "Rw")
+    ]
+    scramble_length = ScrambleLengths.six_by_six_cube_puzzle
+
+
+class SevenBySevenCubePuzzle(CubePuzzle):
+    cube_faces = [
+        ("3Bw", "3Fw", "B", "Bw", "F", "Fw"),
+        ("3Dw", "3Uw", "D", "Dw", "U", "Uw"),
+        ("3Lw", "3Rw", "L", "Lw", "R", "Rw")
+    ]
+    scramble_length = ScrambleLengths.seven_by_seven_cube_puzzle
+
+
 class Puzzles:
     scramble_programs: dict[str, Puzzle] = {
         "222": TwoByTwoCubePuzzle(),
         "333": ThreeByThreeCubePuzzle(),
         "444": FourByFourCubePuzzle(),
-        "555": FiveByFiveCubePuzzle()
+        "555": FiveByFiveCubePuzzle(),
+        "666": SixBySixCubePuzzle(),
+        "777": SevenBySevenCubePuzzle()
     }
 
     def get_puzzle_types(self) -> list[str]:
