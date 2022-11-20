@@ -3,7 +3,7 @@ from os import getenv
 
 from vkbottle.bot import Bot, Message
 
-from cubzone.handlers import Handlers
+from handlers import Handlers
 
 logging.getLogger("vkbottle").setLevel(logging.INFO)
 

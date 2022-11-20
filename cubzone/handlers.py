@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from cubzone.database import Database
-from cubzone.puzzles import Puzzles
+from database import Database
+from puzzles import Puzzles
 
 database = Database()
 puzzles = Puzzles()

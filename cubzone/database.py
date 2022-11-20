@@ -2,7 +2,7 @@ import sqlite3
 
 
 class Database:
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect("cubzone/database.db")
     cur = con.cursor()
 
     def __init__(self):
