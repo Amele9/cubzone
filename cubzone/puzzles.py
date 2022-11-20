@@ -78,7 +78,7 @@ class FourByFourCubePuzzle(CubePuzzle):
 
 
 class Puzzles:
-    scramble_programs = {
+    scramble_programs: dict[str, Puzzle] = {
         "222": TwoByTwoCubePuzzle(),
         "333": ThreeByThreeCubePuzzle(),
         "444": FourByFourCubePuzzle()

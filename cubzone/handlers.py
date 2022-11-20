@@ -66,7 +66,7 @@ class ScrambleHandler(CommandHandler):
     @classmethod
     def handle_arguments(
             cls, arguments: list[str], account: int
-    ) -> str | tuple:
+    ) -> str | tuple[int, str]:
         number_of_arguments = len(arguments)
         if number_of_arguments == 0:
             return (
@@ -131,7 +131,7 @@ class SettingsHandler(CommandHandler):
 
 
 class Handlers:
-    command_handlers = {
+    command_handlers: dict[str, CommandHandler] = {
         "help": HelpHandler(),
         "puzzles": PuzzlesHandler(),
         "scramble": ScrambleHandler(),

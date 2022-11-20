@@ -2,8 +2,8 @@ import sqlite3
 
 
 class Database:
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
+    con: sqlite3.Connection = sqlite3.connect("database.db")
+    cur: sqlite3.Cursor = con.cursor()
 
     def __init__(self):
         self.cur.execute("""
@@ -15,7 +15,7 @@ class Database:
         """)
 
     @property
-    def tables(self):
+    def tables(self) -> "Tables":
         return Tables(self)
 
     def __del__(self):
@@ -28,7 +28,7 @@ class Tables:
         self.database = database
 
     @property
-    def settings(self):
+    def settings(self) -> "Settings":
         return Settings(self.database)
 
 
@@ -38,21 +38,21 @@ class Table:
 
 
 class Settings(Table):
-    def get_number_of_scrambles(self, account: int):
+    def get_number_of_scrambles(self, account: int) -> int:
         self.database.cur.execute("""
         SELECT number_of_scrambles FROM settings WHERE account = ? 
         """, [account])
 
         return self.handle_response(1)
 
-    def get_puzzle_type(self, account: int):
+    def get_puzzle_type(self, account: int) -> str:
         self.database.cur.execute("""
         SELECT puzzle_type FROM settings WHERE account = ?
         """, [account])
 
         return self.handle_response("333")
 
-    def handle_response(self, default_value):
+    def handle_response(self, default_value: int | str) -> int | str:
         response = self.database.cur.fetchone()
         if not response:
             return default_value
@@ -60,7 +60,7 @@ class Settings(Table):
 
     def update_settings(
             self, number_of_scrambles: str, puzzle_type: str, account: int
-    ):
+    ) -> None:
         self.database.cur.execute(
             "SELECT * FROM settings WHERE account = ?", [account]
         )
