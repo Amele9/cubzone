@@ -1,0 +1,4 @@
+.idea
+
+cubzone/__pycache__
+cubzone/database.db
