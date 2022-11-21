@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from database import Database
-from puzzles import Puzzles
+from .database import Database
+from .puzzles import Puzzles
 
 database = Database()
 puzzles = Puzzles()

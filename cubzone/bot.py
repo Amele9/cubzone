@@ -3,7 +3,7 @@ from os import getenv
 
 from vkbottle.bot import Bot, Message
 
-from handlers import Handlers
+from tools import Handlers
 
 logging.getLogger("vkbottle").setLevel(logging.INFO)
 
