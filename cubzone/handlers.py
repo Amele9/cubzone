@@ -66,29 +66,22 @@ class ScrambleHandler(CommandHandler):
             cls, arguments: list[str], account: int
     ) -> str | tuple[int, str]:
         number_of_arguments = len(arguments)
-        if number_of_arguments == 0:
+        if not number_of_arguments:
             return database.tables.settings.get_settings(account)
-        elif number_of_arguments == 1:
+
+        if number_of_arguments == 1:
             number_of_scrambles = arguments[0]
             puzzle_type = database.tables.settings.get_puzzle_type(account)
-
-            error_message = cls.check_arguments(
-                number_of_scrambles, puzzle_type
-            )
-            if error_message:
-                return error_message
-
-            return int(number_of_scrambles), puzzle_type
         elif number_of_arguments == 2:
             number_of_scrambles, puzzle_type = arguments
+        else:
+            number_of_scrambles, puzzle_type = arguments[:2]
 
-            error_message = cls.check_arguments(
-                number_of_scrambles, puzzle_type
-            )
-            if error_message:
-                return error_message
+        error_message = cls.check_arguments(number_of_scrambles, puzzle_type)
+        if error_message:
+            return error_message
 
-            return int(number_of_scrambles), puzzle_type
+        return int(number_of_scrambles), puzzle_type
 
 
 class SettingsHandler(CommandHandler):
