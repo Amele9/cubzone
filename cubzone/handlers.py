@@ -37,9 +37,7 @@ class ScrambleHandler(CommandHandler):
 
         if number_of_scrambles == 1:
             return scramble_program.get_scramble()
-        scrambles = [
-            scramble_program.get_scramble() for _ in range(number_of_scrambles)
-        ]
+        scrambles = scramble_program.get_scrambles(number_of_scrambles)
 
         response = f"Количество алгоритмов: [ {len(scrambles)} ].\n\n"
         for number, scramble in enumerate(scrambles, 1):

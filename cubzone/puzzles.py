@@ -18,6 +18,9 @@ class Puzzle(ABC):
     def get_scramble(self) -> str:
         return self.make_scramble(self.scramble_length)
 
+    def get_scrambles(self, number_of_scrambles: int) -> list[str]:
+        return [self.get_scramble() for _ in range(number_of_scrambles)]
+
     @classmethod
     @abstractmethod
     def make_scramble(cls, scramble_length: ScrambleLengths) -> str:
