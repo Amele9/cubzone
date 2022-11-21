@@ -52,6 +52,12 @@ class Settings(Table):
 
         return self.handle_response("333")
 
+    def get_settings(self, account: int) -> tuple[int, str]:
+        return (
+            self.get_number_of_scrambles(account),
+            self.get_puzzle_type(account)
+        )
+
     def handle_response(self, default_value: int | str) -> int | str:
         response = self.database.cur.fetchone()
         if not response:

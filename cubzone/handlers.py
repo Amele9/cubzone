@@ -67,10 +67,7 @@ class ScrambleHandler(CommandHandler):
     ) -> str | tuple[int, str]:
         number_of_arguments = len(arguments)
         if number_of_arguments == 0:
-            return (
-                database.tables.settings.get_number_of_scrambles(account),
-                database.tables.settings.get_puzzle_type(account)
-            )
+            return database.tables.settings.get_settings(account)
         elif number_of_arguments == 1:
             number_of_scrambles = arguments[0]
             puzzle_type = database.tables.settings.get_puzzle_type(account)
@@ -115,10 +112,7 @@ class SettingsHandler(CommandHandler):
                 f"{puzzle_type} ] для команды /scramble успешно установлены."
             )
         else:
-            settings = (
-                database.tables.settings.get_number_of_scrambles(account),
-                database.tables.settings.get_puzzle_type(account)
-            )
+            settings = database.tables.settings.get_settings(account)
 
             number_of_scrambles, puzzle_type = settings
 
