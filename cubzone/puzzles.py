@@ -72,15 +72,14 @@ class FourByFourCubePuzzle(CubePuzzle):
         ("D", "U", "Uw"),
         ("L", "R", "Rw")
     ]
-    scramble_length = (
-            ScrambleLengths.four_by_four_cube_puzzle -
-            ScrambleLengths.three_by_three_cube_puzzle
-    )
+    scramble_length = ScrambleLengths.four_by_four_cube_puzzle
 
     def get_scramble(self) -> str:
         scramble = ThreeByThreeCubePuzzle().get_scramble()
 
-        return scramble + self.make_scramble(self.scramble_length)
+        return scramble + self.make_scramble(
+            self.scramble_length - ScrambleLengths.three_by_three_cube_puzzle
+        )
 
 
 class FiveByFiveCubePuzzle(CubePuzzle):
