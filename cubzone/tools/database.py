@@ -40,7 +40,7 @@ class Table:
 class Settings(Table):
     def get_number_of_scrambles(self, account: int) -> int:
         self.database.cur.execute("""
-        SELECT number_of_scrambles FROM settings WHERE account = ? 
+        SELECT number_of_scrambles FROM settings WHERE account = ?
         """, [account])
 
         return self.handle_response(1)
@@ -81,7 +81,7 @@ class Settings(Table):
         UPDATE settings
         SET number_of_scrambles = ?,
             puzzle_type = ?
-        WHERE account = ? 
+        WHERE account = ?
         """, [number_of_scrambles, puzzle_type, account])
 
         self.database.con.commit()
