@@ -114,7 +114,7 @@ class SevenBySevenCubePuzzle(CubePuzzle):
 
 
 class MinxPuzzle(Puzzle):
-    directions: tuple[str, str] = ("++", "-\t-")
+    directions: tuple[str, str] = ("++", "--")
     scramble_length = ScrambleLengths.MINX_PUZZLE
 
     @classmethod
