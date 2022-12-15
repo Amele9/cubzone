@@ -59,3 +59,4 @@ CubZone - это [сообщество](https://vk.com/cubzone) (бот), кот
 - 555
 - 666
 - 777
+- minx
