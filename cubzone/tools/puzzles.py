@@ -4,12 +4,16 @@ from random import choice, randint
 
 
 class ScrambleLengths(IntEnum):
+    # Scramble lengths for cube puzzles
     TWO_BY_TWO_CUBE_PUZZLE = 11
     THREE_BY_THREE_CUBE_PUZZLE = 21
     FOUR_BY_FOUR_CUBE_PUZZLE = 44
     FIVE_BY_FIVE_CUBE_PUZZLE = 60
     SIX_BY_SIX_CUBE_PUZZLE = 80
     SEVEN_BY_SEVEN_CUBE_PUZZLE = 100
+
+    # Scramble lengths for minx puzzle
+    MINX_PUZZLE = 77
 
 
 class Puzzle(ABC):
@@ -109,6 +113,25 @@ class SevenBySevenCubePuzzle(CubePuzzle):
     scramble_length = ScrambleLengths.SEVEN_BY_SEVEN_CUBE_PUZZLE
 
 
+class MinxPuzzle(Puzzle):
+    directions: tuple[str, str] = ("++", "-\t-")
+    scramble_length = ScrambleLengths.MINX_PUZZLE
+
+    @classmethod
+    def make_scramble(cls, scramble_length: ScrambleLengths) -> str:
+        scramble = ""
+
+        while scramble_length:
+            for _ in range(5):
+                scramble += f"R{choice(cls.directions)} "
+                scramble += f"D{choice(cls.directions)} "
+
+            scramble += f"""U{choice(("", "'"))}\n"""
+            scramble_length -= 11
+
+        return scramble
+
+
 class Puzzles:
     scramble_programs: dict[str, Puzzle] = {
         "222": TwoByTwoCubePuzzle(),
@@ -116,7 +139,9 @@ class Puzzles:
         "444": FourByFourCubePuzzle(),
         "555": FiveByFiveCubePuzzle(),
         "666": SixBySixCubePuzzle(),
-        "777": SevenBySevenCubePuzzle()
+        "777": SevenBySevenCubePuzzle(),
+
+        "minx": MinxPuzzle()
     }
 
     def get_puzzle_types(self) -> list[str]:
