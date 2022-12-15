@@ -4,12 +4,12 @@ from random import choice, randint
 
 
 class ScrambleLengths(IntEnum):
-    two_by_two_cube_puzzle = 11
-    three_by_three_cube_puzzle = 21
-    four_by_four_cube_puzzle = 44
-    five_by_five_cube_puzzle = 60
-    six_by_six_cube_puzzle = 80
-    seven_by_seven_cube_puzzle = 100
+    TWO_BY_TWO_CUBE_PUZZLE = 11
+    THREE_BY_THREE_CUBE_PUZZLE = 21
+    FOUR_BY_FOUR_CUBE_PUZZLE = 44
+    FIVE_BY_FIVE_CUBE_PUZZLE = 60
+    SIX_BY_SIX_CUBE_PUZZLE = 80
+    SEVEN_BY_SEVEN_CUBE_PUZZLE = 100
 
 
 class Puzzle(ABC):
@@ -28,7 +28,7 @@ class Puzzle(ABC):
 
 
 class CubePuzzle(Puzzle):
-    cube_faces: list
+    cube_faces: list[tuple[str, ...]]
     directions: list[str] = ["", "'", "2"]
 
     @classmethod
@@ -58,12 +58,12 @@ class CubePuzzle(Puzzle):
 
 class TwoByTwoCubePuzzle(CubePuzzle):
     cube_faces = [("B", "F"), ("D", "U"), ("L", "R")]
-    scramble_length = ScrambleLengths.two_by_two_cube_puzzle
+    scramble_length = ScrambleLengths.TWO_BY_TWO_CUBE_PUZZLE
 
 
 class ThreeByThreeCubePuzzle(CubePuzzle):
     cube_faces = [("B", "F"), ("D", "U"), ("L", "R")]
-    scramble_length = ScrambleLengths.three_by_three_cube_puzzle
+    scramble_length = ScrambleLengths.THREE_BY_THREE_CUBE_PUZZLE
 
 
 class FourByFourCubePuzzle(CubePuzzle):
@@ -72,13 +72,13 @@ class FourByFourCubePuzzle(CubePuzzle):
         ("D", "U", "Uw"),
         ("L", "R", "Rw")
     ]
-    scramble_length = ScrambleLengths.four_by_four_cube_puzzle
+    scramble_length = ScrambleLengths.FOUR_BY_FOUR_CUBE_PUZZLE
 
     def get_scramble(self) -> str:
         scramble = ThreeByThreeCubePuzzle().get_scramble()
 
         return scramble + self.make_scramble(
-            self.scramble_length - ScrambleLengths.three_by_three_cube_puzzle
+            self.scramble_length - ScrambleLengths.THREE_BY_THREE_CUBE_PUZZLE
         )
 
 
@@ -88,7 +88,7 @@ class FiveByFiveCubePuzzle(CubePuzzle):
         ("D", "Dw", "U", "Uw"),
         ("L", "Lw", "R", "Rw")
     ]
-    scramble_length = ScrambleLengths.five_by_five_cube_puzzle
+    scramble_length = ScrambleLengths.FIVE_BY_FIVE_CUBE_PUZZLE
 
 
 class SixBySixCubePuzzle(CubePuzzle):
@@ -97,7 +97,7 @@ class SixBySixCubePuzzle(CubePuzzle):
         ("3Uw", "D", "Dw", "U", "Uw"),
         ("3Rw", "L", "Lw", "R", "Rw")
     ]
-    scramble_length = ScrambleLengths.six_by_six_cube_puzzle
+    scramble_length = ScrambleLengths.SIX_BY_SIX_CUBE_PUZZLE
 
 
 class SevenBySevenCubePuzzle(CubePuzzle):
@@ -106,7 +106,7 @@ class SevenBySevenCubePuzzle(CubePuzzle):
         ("3Dw", "3Uw", "D", "Dw", "U", "Uw"),
         ("3Lw", "3Rw", "L", "Lw", "R", "Rw")
     ]
-    scramble_length = ScrambleLengths.seven_by_seven_cube_puzzle
+    scramble_length = ScrambleLengths.SEVEN_BY_SEVEN_CUBE_PUZZLE
 
 
 class Puzzles:

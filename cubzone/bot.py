@@ -1,5 +1,5 @@
 import logging
-from os import getenv
+from os import environ
 
 from vkbottle.bot import Bot, Message
 
@@ -7,7 +7,7 @@ from tools import Handlers
 
 logging.getLogger("vkbottle").setLevel(logging.INFO)
 
-bot = Bot(token=getenv("token"))
+bot = Bot(token=environ["token"])
 
 handlers = Handlers()
 

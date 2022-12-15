@@ -29,7 +29,7 @@ class ScrambleHandler(CommandHandler):
     def handle_command(self, arguments: list[str], account: int) -> str:
         arguments = self.handle_arguments(arguments, account)
         if isinstance(arguments, str):
-            return arguments
+            return arguments  # error message
 
         number_of_scrambles, puzzle_type = arguments
 
@@ -39,9 +39,9 @@ class ScrambleHandler(CommandHandler):
             return scramble_program.get_scramble()
         scrambles = scramble_program.get_scrambles(number_of_scrambles)
 
-        response = f"Количество алгоритмов: [ {len(scrambles)} ].\n\n"
+        response = f"Количество алгоритмов: [ {len(scrambles)} ].\n"
         for number, scramble in enumerate(scrambles, 1):
-            response += f"[ {number} ]: {scramble}\n"
+            response += f"\n[ {number} ]: {scramble}"
 
         return response
 

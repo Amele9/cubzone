@@ -2,11 +2,11 @@ import sqlite3
 
 
 class Database:
-    con: sqlite3.Connection = sqlite3.connect("database.db")
-    cur: sqlite3.Cursor = con.cursor()
+    connection: sqlite3.Connection = sqlite3.connect("database.db")
+    cursor: sqlite3.Cursor = connection.cursor()
 
     def __init__(self):
-        self.cur.execute("""
+        self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS settings (
             number_of_scrambles INTEGER,
             puzzle_type TEXT,
@@ -19,8 +19,8 @@ class Database:
         return Tables(self)
 
     def __del__(self):
-        self.cur.close()
-        self.con.close()
+        self.cursor.close()
+        self.connection.close()
 
 
 class Tables:
@@ -39,14 +39,14 @@ class Table:
 
 class Settings(Table):
     def get_number_of_scrambles(self, account: int) -> int:
-        self.database.cur.execute("""
+        self.database.cursor.execute("""
         SELECT number_of_scrambles FROM settings WHERE account = ?
         """, [account])
 
         return self.handle_response(1)
 
     def get_puzzle_type(self, account: int) -> str:
-        self.database.cur.execute("""
+        self.database.cursor.execute("""
         SELECT puzzle_type FROM settings WHERE account = ?
         """, [account])
 
@@ -59,7 +59,7 @@ class Settings(Table):
         )
 
     def handle_response(self, default_value: int | str) -> int | str:
-        response = self.database.cur.fetchone()
+        response = self.database.cursor.fetchone()
         if not response:
             return default_value
         return response[0]
@@ -67,24 +67,24 @@ class Settings(Table):
     def update_settings(
             self, number_of_scrambles: str, puzzle_type: str, account: int
     ) -> None:
-        self.database.cur.execute(
+        self.database.cursor.execute(
             "SELECT * FROM settings WHERE account = ?", [account]
         )
 
-        response = self.database.cur.fetchone()
+        response = self.database.cursor.fetchone()
         if not response:
-            self.database.cur.execute(
+            self.database.cursor.execute(
                 "INSERT INTO settings (account) VALUES (?)", [account]
             )
 
-        self.database.cur.execute("""
+        self.database.cursor.execute("""
         UPDATE settings
         SET number_of_scrambles = ?,
             puzzle_type = ?
         WHERE account = ?
         """, [number_of_scrambles, puzzle_type, account])
 
-        self.database.con.commit()
+        self.database.connection.commit()
 
 
 __all__ = ["Database"]
